@@ -118,8 +118,9 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI', Tahoma, Gene
 .badge-folder{background:#1f2f55;color:#9fc0ff;border-radius:6px;padding:4px 8px;}
 .badge-file{background:#2a2f3a;color:#cfd5e5;border-radius:6px;padding:4px 8px;}
 input,textarea{background:#0f141e!important;color:#e5e9ff!important;border:1px solid #2c3446!important;border-radius:6px;}
-.btn-outline-secondary{border-color:#3b455a!important;color:#9aa0b5;}
-.btn-outline-secondary:hover{background:#3b455a;color:#e5e9ff;}
+.btn-dark{background:#000!important;border-color:#000!important;color:#fff!important;}
+.btn-dark:hover{background:#333!important;color:#fff!important;}
+.btn-xs{padding:0.2rem 0.4rem;font-size:0.75rem;line-height:1.2;border-radius:4px;}
 a{color:#9fc0ff;text-decoration:none;}
 a:hover{color:#bcd5ff;text-decoration:underline;}
 textarea{font-family:'Courier New', monospace;border-radius:6px;}
@@ -192,7 +193,7 @@ textarea{font-family:'Courier New', monospace;border-radius:6px;}
         <textarea rows="15" name="content" class="form-control mb-3" placeholder="File content..."><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
         <div class="d-flex gap-2">
           <button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
-          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary"><i class="bi bi-x-circle me-1"></i>Batal</a>
+          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-dark"><i class="bi bi-x-circle me-1"></i>Batal</a>
         </div>
       </form>
     </div>
@@ -232,18 +233,18 @@ textarea{font-family:'Courier New', monospace;border-radius:6px;}
           <td class="text-end pe-3">
             <div class="d-flex gap-1 justify-content-end flex-wrap">
               <?php if(!$isDir): ?>
-                <a class="btn btn-sm btn-outline-primary" href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>"><i class="bi bi-pencil"></i> Edit</a>
+                <a class="btn btn-primary btn-xs" href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>"><i class="bi bi-pencil"></i> Edit</a>
               <?php endif; ?>
               <form method="post" class="d-inline" onsubmit="return confirm('Hapus item ini?')">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="target" value="<?=htmlspecialchars($it)?>">
-                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+                <button class="btn btn-danger btn-xs"><i class="bi bi-trash"></i> Delete</button>
               </form>
               <form method="post" class="d-inline d-flex gap-1">
                 <input type="hidden" name="action" value="rename">
                 <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
-                <input type="text" name="new" class="form-control form-control-sm" placeholder="rename" style="width:120px;">
-                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-check"></i></button>
+                <input type="text" name="new" class="form-control form-control-sm" placeholder="rename" style="width:100px;">
+                <button class="btn btn-dark btn-xs"><i class="bi bi-check"></i></button>
               </form>
             </div>
           </td>
