@@ -122,12 +122,16 @@ input[type=text]{max-width:140px}
         <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
             <div>
                 <strong class="text-secondary">Path</strong> :
-                /
                 <?php
-                $parts = explode('/', trim($cwd,'/'));
+                $absPath = realpath($currentDir);
+                $rootAbs = realpath($ROOT_DIR);
+                $relPath = str_replace($rootAbs . '/', '', $absPath);
+                if ($relPath === $absPath) $relPath = ''; // jika sama dengan root
+                $parts = explode('/', trim($relPath, '/'));
                 $pathBuild = "";
+                echo '<a class="link-primary" href="?open">/</a>';
                 foreach ($parts as $part) {
-                    if ($part==="") continue;
+                    if ($part === "") continue;
                     $pathBuild .= "/$part";
                     echo ' <a class="link-primary" href="?open&p='.urlencode(trim($pathBuild,'/')).'">'.$part.'</a> /';
                 }
