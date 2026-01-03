@@ -84,11 +84,13 @@ function breadcrumb($path){
 }
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>File Manager</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
 /* ===== TRUE DARK THEME ===== */
 :root{
@@ -99,84 +101,98 @@ function breadcrumb($path){
  --muted:#9aa0b5;
  --border:#2a3142;
  --tbl:#1b2230;
+ --hover:#1f2a3c;
 }
-body{background:var(--bg);color:var(--text);}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 .card-modern{
- border-radius:18px;
+ border-radius:12px;
  background:var(--card);
  border:1px solid var(--border);
+ box-shadow:0 4px 12px rgba(0,0,0,0.3);
 }
 .table{color:var(--text);}
-.table thead{background:var(--tbl);}
-.table tbody tr{background:var(--card2);}
+.table thead{background:var(--tbl);border-bottom:1px solid var(--border);}
+.table tbody tr{background:var(--card2);transition:background 0.2s;}
+.table tbody tr:hover{background:var(--hover);}
 .table tbody tr+tr{border-top:1px solid #222b3a;}
-.badge-folder{background:#1f2f55;color:#9fc0ff}
-.badge-file{background:#2a2f3a;color:#cfd5e5}
-input,textarea{background:#0f141e!important;color:#e5e9ff!important;border:1px solid #2c3446!important}
-.btn-outline-secondary{border-color:#3b455a!important}
-a{color:#9fc0ff}
-a:hover{color:#bcd5ff}
-textarea{font-family:monospace}
+.badge-folder{background:#1f2f55;color:#9fc0ff;border-radius:6px;padding:4px 8px;}
+.badge-file{background:#2a2f3a;color:#cfd5e5;border-radius:6px;padding:4px 8px;}
+input,textarea{background:#0f141e!important;color:#e5e9ff!important;border:1px solid #2c3446!important;border-radius:6px;}
+.btn-outline-secondary{border-color:#3b455a!important;color:#9aa0b5;}
+.btn-outline-secondary:hover{background:#3b455a;color:#e5e9ff;}
+a{color:#9fc0ff;text-decoration:none;}
+a:hover{color:#bcd5ff;text-decoration:underline;}
+textarea{font-family:'Courier New', monospace;border-radius:6px;}
+.form-control:focus{box-shadow:0 0 0 0.2rem rgba(159,192,255,0.25);}
+.btn{border-radius:6px;}
+.alert{border-radius:8px;}
 </style>
 </head>
 <body>
-<div class="container py-4">
+<div class="container-fluid px-3 py-3">
 
-  <div class="mb-3">
-    <h3 class="fw-semibold mb-1">File Manager</h3>
-    <span class="text-secondary">Dark • Minimal • Clean</span>
+  <div class="mb-4">
+    <h2 class="fw-bold mb-1 text-primary"><i class="bi bi-folder-fill me-2"></i>File Manager</h2>
+    <p class="text-muted small mb-0">Dark • Minimal • Clean</p>
   </div>
 
   <?php if(isset($_GET['msg'])): ?>
-  <div class="alert alert-success card-modern shadow-sm mb-3"><?=$_GET['msg']?></div>
+  <div class="alert alert-success card-modern shadow-sm mb-3 fade show">
+    <i class="bi bi-check-circle-fill me-2"></i><?=$_GET['msg']?>
+  </div>
   <?php endif; ?>
 
-  <!-- Breadcrumb -->
+  <!-- Breadcrumb and Actions -->
   <div class="card card-modern shadow-sm mb-4">
-    <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <div>
-        <strong class="text-secondary">Path</strong> :
-        <a href="?open&p=/">/</a>
-        <?php foreach(breadcrumb($cwd) as $b): ?>
-          / <a href="?open&p=<?=urlencode($b['path'])?>"><?=$b['name']?></a>
-        <?php endforeach; ?>
-      </div>
-
-      <div class="d-flex flex-wrap gap-2">
-        <form method="post" enctype="multipart/form-data" class="d-flex gap-2">
-          <input type="hidden" name="action" value="upload">
-          <input type="file" name="file" class="form-control form-control-sm" required>
-          <button class="btn btn-primary btn-sm px-3">Upload</button>
-        </form>
-
-        <form method="post" class="d-flex gap-2">
-          <input type="hidden" name="action" value="mkdir">
-          <input type="text" name="folder" placeholder="New folder" class="form-control form-control-sm">
-          <button class="btn btn-success btn-sm">Create Folder</button>
-        </form>
-
-        <form method="post" class="d-flex gap-2">
-          <input type="hidden" name="action" value="mkfile">
-          <input type="text" name="filename" placeholder="New file" class="form-control form-control-sm">
-          <button class="btn btn-info btn-sm">Create File</button>
-        </form>
+    <div class="card-body p-3">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <strong class="text-secondary small">Path:</strong>
+          <nav aria-label="breadcrumb" class="d-inline">
+            <ol class="breadcrumb bg-transparent p-0 m-0">
+              <li class="breadcrumb-item"><a href="?open&p=/"><i class="bi bi-house-door"></i></a></li>
+              <?php foreach(breadcrumb($cwd) as $b): ?>
+                <li class="breadcrumb-item"><a href="?open&p=<?=urlencode($b['path'])?>"><?=$b['name']?></a></li>
+              <?php endforeach; ?>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex flex-wrap gap-2 justify-content-end">
+            <form method="post" enctype="multipart/form-data" class="d-flex gap-2">
+              <input type="hidden" name="action" value="upload">
+              <input type="file" name="file" class="form-control form-control-sm" required>
+              <button class="btn btn-primary btn-sm"><i class="bi bi-upload me-1"></i>Upload</button>
+            </form>
+            <form method="post" class="d-flex gap-2">
+              <input type="hidden" name="action" value="mkdir">
+              <input type="text" name="folder" placeholder="New folder" class="form-control form-control-sm">
+              <button class="btn btn-success btn-sm"><i class="bi bi-folder-plus me-1"></i>Create</button>
+            </form>
+            <form method="post" class="d-flex gap-2">
+              <input type="hidden" name="action" value="mkfile">
+              <input type="text" name="filename" placeholder="New file" class="form-control form-control-sm">
+              <button class="btn btn-info btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>Create</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <?php if($editFile): ?>
   <div class="card card-modern shadow-sm mb-4">
-    <div class="card-header bg-transparent fw-semibold">
-      Edit — <?=basename($editFile)?>
+    <div class="card-header bg-transparent fw-semibold border-bottom border-secondary">
+      <i class="bi bi-pencil-square me-2"></i>Edit — <?=basename($editFile)?>
     </div>
-    <div class="card-body">
+    <div class="card-body p-3">
       <form method="post">
         <input type="hidden" name="action" value="save">
         <input type="hidden" name="file" value="<?=htmlspecialchars($_GET['edit'])?>">
-        <textarea rows="12" name="content" class="form-control mb-3"><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
+        <textarea rows="15" name="content" class="form-control mb-3" placeholder="File content..."><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
         <div class="d-flex gap-2">
-          <button class="btn btn-primary px-3">Simpan</button>
-          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary">Batal</a>
+          <button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
+          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary"><i class="bi bi-x-circle me-1"></i>Batal</a>
         </div>
       </form>
     </div>
@@ -185,10 +201,13 @@ textarea{font-family:monospace}
 
   <div class="card card-modern shadow-sm">
     <div class="table-responsive">
-      <table class="table mb-0">
+      <table class="table table-hover mb-0">
         <thead>
           <tr>
-            <th>Nama</th><th>Tipe</th><th>Ukuran</th><th class="text-end">Aksi</th>
+            <th class="ps-3"><i class="bi bi-file-earmark me-1"></i>Nama</th>
+            <th>Tipe</th>
+            <th>Ukuran</th>
+            <th class="text-end pe-3">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -199,35 +218,34 @@ textarea{font-family:monospace}
           $isDir=is_dir($full);
         ?>
         <tr>
-          <td class="fw-medium">
+          <td class="fw-medium ps-3">
             <?php if($isDir): ?>
-              <span class="badge badge-folder me-1">Folder</span>
+              <span class="badge badge-folder me-2"><i class="bi bi-folder"></i></span>
               <a href="?open&p=<?=urlencode($full)?>"><?=$it?></a>
             <?php else: ?>
-              <span class="badge badge-file me-1">File</span>
+              <span class="badge badge-file me-2"><i class="bi bi-file-earmark"></i></span>
               <?=$it?>
             <?php endif; ?>
           </td>
           <td><?=$isDir?'Folder':'File'?></td>
-          <td><?=$isDir?'—':filesize($full).' bytes'?></td>
-          <td class="text-end">
-            <?php if(!$isDir): ?>
-              <a class="btn btn-sm btn-outline-primary"
-                 href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>">Edit</a>
-            <?php endif; ?>
-
-            <form method="post" class="d-inline" onsubmit="return confirm('Hapus item ini?')">
-              <input type="hidden" name="action" value="delete">
-              <input type="hidden" name="target" value="<?=htmlspecialchars($it)?>">
-              <button class="btn btn-sm btn-outline-danger">Delete</button>
-            </form>
-
-            <form method="post" class="d-inline">
-              <input type="hidden" name="action" value="rename">
-              <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
-              <input type="text" name="new" class="form-control form-control-sm d-inline" placeholder="rename">
-              <button class="btn btn-sm btn-outline-secondary">OK</button>
-            </form>
+          <td><?=$isDir?'—':number_format(filesize($full)).' bytes'?></td>
+          <td class="text-end pe-3">
+            <div class="d-flex gap-1 justify-content-end flex-wrap">
+              <?php if(!$isDir): ?>
+                <a class="btn btn-sm btn-outline-primary" href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>"><i class="bi bi-pencil"></i> Edit</a>
+              <?php endif; ?>
+              <form method="post" class="d-inline" onsubmit="return confirm('Hapus item ini?')">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="target" value="<?=htmlspecialchars($it)?>">
+                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+              </form>
+              <form method="post" class="d-inline d-flex gap-1">
+                <input type="hidden" name="action" value="rename">
+                <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
+                <input type="text" name="new" class="form-control form-control-sm" placeholder="rename" style="width:120px;">
+                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-check"></i></button>
+              </form>
+            </div>
           </td>
         </tr>
         <?php endforeach;?>
@@ -237,5 +255,6 @@ textarea{font-family:monospace}
   </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
