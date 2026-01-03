@@ -1,6 +1,6 @@
 <?php
 /****************************
- * Modern PHP File Manager (Require ?open + True Dark Mode)
+ * Modern PHP File Manager (Require ?open + Light Mode)
  ****************************/
 
 // === Require query ?open ===
@@ -92,39 +92,39 @@ function breadcrumb($path){
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <style>
-/* ===== TRUE DARK THEME ===== */
+/* ===== LIGHT THEME ===== */
 :root{
- --bg:#0b0e14;
- --card:#121720;
- --card2:#171d29;
- --text:#e5e9ff;
- --muted:#9aa0b5;
- --border:#2a3142;
- --tbl:#1b2230;
- --hover:#1f2a3c;
+ --bg:#ffffff;
+ --card:#f8f9fa;
+ --card2:#ffffff;
+ --text:#333333;
+ --muted:#6c757d;
+ --border:#dee2e6;
+ --tbl:#e9ecef;
+ --hover:#f1f3f4;
 }
 body{background:var(--bg);color:var(--text);font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 .card-modern{
  border-radius:12px;
  background:var(--card);
  border:1px solid var(--border);
- box-shadow:0 4px 12px rgba(0,0,0,0.3);
+ box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 .table{color:var(--text);}
 .table thead{background:var(--tbl);border-bottom:1px solid var(--border);}
 .table tbody tr{background:var(--card2);transition:background 0.2s;}
 .table tbody tr:hover{background:var(--hover);}
-.table tbody tr+tr{border-top:1px solid #222b3a;}
-.badge-folder{background:#1f2f55;color:#9fc0ff;border-radius:6px;padding:4px 8px;}
-.badge-file{background:#2a2f3a;color:#cfd5e5;border-radius:6px;padding:4px 8px;}
-input,textarea{background:#0f141e!important;color:#e5e9ff!important;border:1px solid #2c3446!important;border-radius:6px;}
-.btn-dark{background:#000!important;border-color:#000!important;color:#fff!important;}
-.btn-dark:hover{background:#333!important;color:#fff!important;}
+.table tbody tr+tr{border-top:1px solid #e9ecef;}
+.badge-folder{background:#007bff;color:#ffffff;border-radius:6px;padding:4px 8px;}
+.badge-file{background:#6c757d;color:#ffffff;border-radius:6px;padding:4px 8px;}
+input,textarea{background:#ffffff!important;color:#333333!important;border:1px solid #ced4da!important;border-radius:6px;}
+.btn-secondary{background:#6c757d!important;border-color:#6c757d!important;color:#ffffff!important;}
+.btn-secondary:hover{background:#5a6268!important;color:#ffffff!important;}
 .btn-xs{padding:0.2rem 0.4rem;font-size:0.75rem;line-height:1.2;border-radius:4px;}
-a{color:#9fc0ff;text-decoration:none;}
-a:hover{color:#bcd5ff;text-decoration:underline;}
+a{color:#007bff;text-decoration:none;}
+a:hover{color:#0056b3;text-decoration:underline;}
 textarea{font-family:'Courier New', monospace;border-radius:6px;}
-.form-control:focus{box-shadow:0 0 0 0.2rem rgba(159,192,255,0.25);}
+.form-control:focus{box-shadow:0 0 0 0.2rem rgba(0,123,255,0.25);}
 .btn{border-radius:6px;}
 .alert{border-radius:8px;}
 </style>
@@ -134,7 +134,7 @@ textarea{font-family:'Courier New', monospace;border-radius:6px;}
 
   <div class="mb-4">
     <h2 class="fw-bold mb-1 text-primary"><i class="bi bi-folder-fill me-2"></i>File Manager</h2>
-    <p class="text-muted small mb-0">Dark • Minimal • Clean</p>
+    <p class="text-muted small mb-0">Light • Minimal • Clean</p>
   </div>
 
   <?php if(isset($_GET['msg'])): ?>
@@ -193,7 +193,7 @@ textarea{font-family:'Courier New', monospace;border-radius:6px;}
         <textarea rows="15" name="content" class="form-control mb-3" placeholder="File content..."><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
         <div class="d-flex gap-2">
           <button class="btn btn-primary"><i class="bi bi-save me-1"></i>Simpan</button>
-          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-dark"><i class="bi bi-x-circle me-1"></i>Batal</a>
+          <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-secondary"><i class="bi bi-x-circle me-1"></i>Batal</a>
         </div>
       </form>
     </div>
@@ -244,7 +244,7 @@ textarea{font-family:'Courier New', monospace;border-radius:6px;}
                 <input type="hidden" name="action" value="rename">
                 <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
                 <input type="text" name="new" class="form-control form-control-sm" placeholder="rename" style="width:100px;">
-                <button class="btn btn-dark btn-xs"><i class="bi bi-check"></i></button>
+                <button class="btn btn-secondary btn-xs"><i class="bi bi-check"></i></button>
               </form>
             </div>
           </td>
