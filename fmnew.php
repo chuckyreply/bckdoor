@@ -136,21 +136,19 @@ input[type=text]{max-width:140px}
             <div>
                 <strong class="text-secondary">Path</strong> :
                 <?php
-                $absPath = $currentDir; // Menggunakan $currentDir sebagai pwd (path absolut)
-                $parts = explode('/', trim($absPath, '/'));
-                $pathBuild = "";
+                // Breadcrumb navigation menggunakan $cwd (path relatif)
+                $parts = $cwd ? explode('/', $cwd) : [];
                 echo '<a class="link-primary" href="?open">/</a>';
-                foreach ($parts as $part) {
-                    if ($part === "") continue;
-                    $pathBuild .= "/$part";
-                    // Hitung path relatif dari $ROOT_DIR untuk link navigasi
-                    $rootAbs = realpath($ROOT_DIR);
-                    if (strpos($pathBuild, $rootAbs) === 0) {
-                        $rel = substr($pathBuild, strlen($rootAbs) + 1);
-                        echo ' <a class="link-primary" href="?open&p='.urlencode($rel).'">'.$part.'</a> /';
+                $pathBuild = '';
+                for ($i = 0; $i < count($parts); $i++) {
+                    $part = $parts[$i];
+                    $pathBuild .= ($pathBuild ? '/' : '') . $part;
+                    if ($i < count($parts) - 1) {
+                        // Link untuk level sebelum current
+                        echo ' <a class="link-primary" href="?open&p='.urlencode($pathBuild).'">'.$part.'</a> /';
                     } else {
-                        // Jika di luar $ROOT_DIR, tampilkan tanpa link
-                        echo ' ' . $part . ' /';
+                        // Bagian terakhir (current) tanpa link
+                        echo ' <span class="text-dark fw-bold">'.$part.'</span> /';
                     }
                 }
                 ?>
